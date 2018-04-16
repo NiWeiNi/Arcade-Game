@@ -2,8 +2,9 @@
 class Enemy {
     constructor() {
         const x = Math.floor(Math.random());
-        const y = 60; // [60, 145, 260];
-        const speed = 50 + Math.random() * 50;
+        const stoneRows = [60, 145, 234];
+        const y = stoneRows[Math.floor(Math.random() * 3)];
+        const speed = 50 + Math.random() * 100;
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -13,6 +14,9 @@ class Enemy {
     // Parameter: dt, a time delta between ticks
     update(dt) {
         this.x += this.speed * dt;
+        if (this.x > 505) {
+            this.x = 1;
+        }
     }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -46,15 +50,43 @@ class Enemy {
 class Player {
     constructor() {
         const speed = 100;
-        this.x = this.x;
-        this.y = this.y;
+        const x = 200;
+        const y = 400;
+        this.x = x;
+        this.y = y;
         this.speed = speed;
         this.sprite = "img/char-boy.png"
     }
-    update(dt) {
+    update() {
+        if (this.x > 402) 
+            this.x = 402;
+        if (this.x < 0)
+            this.x = 0;
+        if (this.y > 400)
+            this.y = 400;
+        if (this.y < 30) {
+            this.y = 400;
+            this.x = 200;
+        }
     }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+    handleInput(keyPress) {
+        switch (keyPress) {
+            case "up":
+                this.y -= 83;
+                break;
+            case "down":
+                this.y += 83;
+                break;
+            case "left":
+                this.x -= 101;
+                break;
+            case "right":
+                this.x += 101;
+                break;
+        }
     }
 }
 
@@ -67,7 +99,7 @@ for (let i = 0; i < 6; i++) {
     allEnemies.push(enemy);
 }
 
-const player = new Player();
+const player = new Player(200, 400);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
