@@ -17,6 +17,10 @@ class Enemy {
         if (this.x > 505) {
             this.x = 1;
         }
+        if (player.x < this.x + 75 && player.x + 65 < this.x && player.y < this.y + 50 && player.y + 70 > this.y) {
+            player.x = 200;
+            player.y = 400;
+        }
     }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
