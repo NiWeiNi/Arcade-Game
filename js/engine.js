@@ -80,8 +80,14 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
-        updateEntities(dt);
+        if (document.querySelector(".score").textContent.length >= 5) {
+            return document.querySelector(".win").classList.add("show-win");
+        }
+        else {
+            return updateEntities(dt);
+        }
         // checkCollisions();
+        
     }
 
     /* This is called by the update function and loops through all of the
@@ -186,4 +192,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
 })(this);
