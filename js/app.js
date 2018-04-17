@@ -1,10 +1,10 @@
+// Canvas width, height and other references
+const canvasWidth = Number(document.querySelector("canvas").getAttribute("width"));
+const canvasHeight = Number(document.querySelector("canvas").getAttribute("height"));
+
 // Enemies our player must avoid
 class Enemy {
-    constructor() {
-        const x = Math.floor(Math.random());
-        const stoneRows = [60, 145, 234];
-        const y = stoneRows[Math.floor(Math.random() * 3)];
-        const speed = 50 + Math.random() * 100;
+    constructor(x, y, speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -21,6 +21,18 @@ class Enemy {
             player.x = 200;
             player.y = 400;
         }
+    }
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
+
+// class squashed
+class Squashed {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.sprite = "img/Star.png";
     }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -52,13 +64,10 @@ class Enemy {
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
-    constructor() {
-        const speed = 100;
-        const x = 200;
-        const y = 400;
+    constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.speed = 100;
         this.sprite = "img/char-boy.png"
     }
     update() {
@@ -79,10 +88,10 @@ class Player {
     handleInput(keyPress) {
         switch (keyPress) {
             case "up":
-                this.y -= 83;
+                this.y -= 84;
                 break;
             case "down":
-                this.y += 83;
+                this.y += 84;
                 break;
             case "left":
                 this.x -= 101;
@@ -99,7 +108,7 @@ class Player {
 // Place the player object in a variable called player
 const allEnemies = [];
 for (let i = 0; i < 6; i++) {
-    const enemy = new Enemy;
+    const enemy = new Enemy(Math.floor(Math.random()), Array(63, 146, 229)[Math.floor(Math.random() * 3)] , 50 + Math.random() * 100);
     allEnemies.push(enemy);
 }
 
