@@ -84,10 +84,15 @@ var Engine = (function(global) {
             return document.querySelector(".win").classList.add("show-win");
         }
         else {
+            // checkCollisions();
+            for (let i = 0; i < 6; i++) {
+                if (player.x < allEnemies[i].x + 75 && player.x + 65 > allEnemies[i].x && player.y < allEnemies[i].y + 50 && player.y + 70 > allEnemies[i].y) {
+                    player.x = 200;
+                    player.y = 400;
+                }
+            }
             return updateEntities(dt);
         }
-        // checkCollisions();
-        
     }
 
     /* This is called by the update function and loops through all of the
