@@ -169,7 +169,10 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        // Remove previous scores
+        document.querySelector(".score").textContent = "0";
+        // Hide win popup
+        document.querySelector(".win").classList.remove("show-win");
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -192,5 +195,8 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
+    const replayButton = document.querySelector(".replay");
+    replayButton.addEventListener("click", reset);
 
 })(this);
