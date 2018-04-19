@@ -20,7 +20,8 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    var doc = global.document,
+    let flagCollision = false;
+    let doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
@@ -40,7 +41,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-        var now = Date.now(),
+        let now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
@@ -84,14 +85,23 @@ var Engine = (function(global) {
             return document.querySelector(".win").classList.add("show-win");
         }
         else {
-            // checkCollisions();
-            for (let i = 0; i < 6; i++) {
-                if (player.x < allEnemies[i].x + 75 && player.x + 65 > allEnemies[i].x && player.y < allEnemies[i].y + 50 && player.y + 70 > allEnemies[i].y) {
-                    player.x = 200;
-                    player.y = 400;
-                }
-            }
+            flagCollision = false;
+            checkCollisions();
             return updateEntities(dt);
+        }
+    }
+
+    function checkCollisions() {
+        for (let i = 0; i < 6; i++) {
+            if (player.x < allEnemies[i].x + 75 && player.x + 65 > allEnemies[i].x && player.y < allEnemies[i].y + 50 && player.y + 70 > allEnemies[i].y) {
+
+                setTimeout(function(){ player.x = 200;
+                    player.y = 400;; }, 100)
+
+                flagCollision = true;
+                console.log("hello");
+                return flagCollision;
+            }
         }
     }
 
@@ -107,6 +117,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        squashed.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -166,7 +177,12 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
+        player.render();   
+
+        if (flagCollision == true) {
+            squashed.render();
+        }
+    
     }
 
     /* This function does nothing but it could have been a good place to
@@ -175,7 +191,8 @@ var Engine = (function(global) {
      */
     function reset() {
         // Remove previous scores
-        document.querySelector(".score").textContent = "0";
+        player.score = "";
+        document.querySelector(".score").textContent = "-";
         // Hide win popup
         document.querySelector(".win").classList.remove("show-win");
     }
@@ -191,7 +208,7 @@ var Engine = (function(global) {
         'img/enemy-bug.png',
         'img/char-boy.png',
         'img/Rock.png',
-        'img/Star.png'
+        'img/char-boy-down.png'
     ]);
     Resources.onReady(init);
 
@@ -201,6 +218,7 @@ var Engine = (function(global) {
      */
     global.ctx = ctx;
 
+    // Add event listener to the replay button
     const replayButton = document.querySelector(".replay");
     replayButton.addEventListener("click", reset);
 

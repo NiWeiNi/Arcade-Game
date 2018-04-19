@@ -1,7 +1,3 @@
-// Canvas width, height and other references
-const canvasWidth = Number(document.querySelector("canvas").getAttribute("width"));
-const canvasHeight = Number(document.querySelector("canvas").getAttribute("height"));
-
 // Enemies our player must avoid
 class Enemy {
     constructor(x, y, speed) {
@@ -22,10 +18,6 @@ class Enemy {
         if (this.x > 505) {
             this.x = 1;
         }
-        // if (player.x < this.x + 75 && player.x + 65 > this.x && player.y < this.y + 50 && player.y + 70 > this.y) {
-        //     player.x = 200;
-        //     player.y = 400;
-        // }
     }
     // Draw the enemy on the screen, required method for game
     render() {
@@ -33,25 +25,13 @@ class Enemy {
     }
 }
 
-// class squashed
-class Squashed {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.sprite = "img/Star.png";
-    }
-    render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
-}
-
-const squashed = new Squashed();
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
     constructor(x, y) {
+        this.xPrevious = 0;
+        this.yPrevious = 0;
         this.x = x;
         this.y = y;
         this.speed = 120;
@@ -63,10 +43,10 @@ class Player {
             this.x = 402;
         if (this.x < 0)
             this.x = 0;
-        if (this.y > 400)
-            this.y = 400;
+        if (this.y > 402)
+            this.y = 402;
         if (this.y < 30) {
-            this.y = 400;
+            this.y = 402;
             this.x = 200;
             this.getPoints();
             document.querySelector(".score").textContent = this.score;
@@ -96,6 +76,26 @@ class Player {
     }
 }
 
+// class squashed
+class Squashed {
+    constructor() {
+        this.x = player.x;
+        this.y = player.y;
+        this.hospital = "";
+        this.sprite = "img/char-boy-down.png";
+    }
+    getPoints() {
+        this.hospital += "*";
+    }
+    update() {
+        this.x = player.x;
+        this.y = player.y;
+    }
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -104,8 +104,9 @@ for (let i = 0; i < 6; i++) {
     const enemy = new Enemy(Math.floor(Math.random()), Array(63, 146, 229)[Math.floor(Math.random() * 3)] , 50 + Math.random() * 100);
     allEnemies.push(enemy);
 }
-
 const player = new Player(200, 400);
+const squashed = new Squashed();
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {

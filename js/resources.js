@@ -20,7 +20,7 @@
              * loader on that image file
              */
             urlOrArr.forEach(function(url) {
-                _load(url);
+                _load(url); 
             });
         } else {
             /* The developer did not pass an array to this function,
@@ -38,7 +38,7 @@
         if(resourceCache[url]) {
             /* If this URL has been previously loaded it will exist within
              * our resourceCache array. Just return that image rather
-             * re-loading the image.
+             * re-loading the image.0
              */
             return resourceCache[url];
         } else {
