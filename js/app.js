@@ -30,15 +30,13 @@ class Enemy {
 // a handleInput() method.
 class Player {
     constructor(x, y) {
-        this.xPrevious = 0;
-        this.yPrevious = 0;
         this.x = x;
         this.y = y;
         this.speed = 120;
         this.score = "";
         this.sprite = "img/char-boy.png"
     }
-    update() {
+    update(dt) {
         if (this.x > 402) 
             this.x = 402;
         if (this.x < 0)
@@ -55,6 +53,7 @@ class Player {
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
+    // Method to add points 
     getPoints() {
         this.score += "*";
     }
@@ -76,7 +75,7 @@ class Player {
     }
 }
 
-// class squashed
+// Class squashed, when player gets hit
 class Squashed {
     constructor() {
         this.x = player.x;
@@ -99,6 +98,7 @@ class Squashed {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+// Place the squashed player in a variable called squashed
 const allEnemies = [];
 for (let i = 0; i < 6; i++) {
     const enemy = new Enemy(Math.floor(Math.random()), Array(63, 146, 229)[Math.floor(Math.random() * 3)] , 50 + Math.random() * 100);
