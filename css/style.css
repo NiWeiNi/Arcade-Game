@@ -18,9 +18,9 @@ main h1 {
     position: absolute;
     text-align: center;
     opacity: 0;
-    left: 40%;
-    top: 40%;
-    width: 20%;
+    left: 30%;
+    top: 30%;
+    width: 40%;
     background-color: white;
 }
 
