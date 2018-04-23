@@ -94,7 +94,7 @@ var Engine = (function(global) {
 
     function checkCollisions() {
         for (let i = 0; i < 6; i++) {
-            if (player.x < allEnemies[i].x + 75 && player.x + 26 > allEnemies[i].x && player.y < allEnemies[i].y + 65 && player.y + 31 > allEnemies[i].y) {
+            if (player.x < allEnemies[i].x + 75 && player.x + 75 > allEnemies[i].x && player.y < allEnemies[i].y + 65 && player.y + 31 > allEnemies[i].y) {
 
                 setTimeout(function(){ player.x = 202;
                     player.y = 400;; }, 100)
