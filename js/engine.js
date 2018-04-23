@@ -81,24 +81,26 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
-        // Black heart = 2 char length
+        // If score = 10, return game win. Black heart = 2 char length
         if (document.querySelector(".score").textContent.length >= 10) {
             return document.querySelector(".win").classList.add("show-win");
-        }
-        else {
+        } else { // Keep running the game engine
             flagCollision = false;
             checkCollisions();
             return updateEntities(dt);
         }
     }
 
+    // Function to check collisions
     function checkCollisions() {
         for (let i = 0; i < 6; i++) {
+            // Check if player is hit in any direction; left, rigth, up and down
             if (player.x < allEnemies[i].x + 75 && player.x + 75 > allEnemies[i].x && player.y < allEnemies[i].y + 65 && player.y + 31 > allEnemies[i].y) {
 
+                // Display player hit for 1/10 of second
                 setTimeout(function(){ player.x = 202;
                     player.y = 400;; }, 100)
-
+                // Set the glagCollision to true in order to render the squashed object  
                 flagCollision = true;
                 return flagCollision;
             }
