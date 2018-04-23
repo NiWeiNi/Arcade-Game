@@ -81,7 +81,8 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
-        if (document.querySelector(".score").textContent.length >= 5) {
+        // Black heart = 2 char length
+        if (document.querySelector(".score").textContent.length >= 10) {
             return document.querySelector(".win").classList.add("show-win");
         }
         else {
@@ -93,13 +94,12 @@ var Engine = (function(global) {
 
     function checkCollisions() {
         for (let i = 0; i < 6; i++) {
-            if (player.x < allEnemies[i].x + 75 && player.x + 65 > allEnemies[i].x && player.y < allEnemies[i].y + 50 && player.y + 70 > allEnemies[i].y) {
+            if (player.x < allEnemies[i].x + 75 && player.x + 26 > allEnemies[i].x && player.y < allEnemies[i].y + 65 && player.y + 31 > allEnemies[i].y) {
 
-                setTimeout(function(){ player.x = 200;
+                setTimeout(function(){ player.x = 202;
                     player.y = 400;; }, 100)
 
                 flagCollision = true;
-                console.log("hello");
                 return flagCollision;
             }
         }

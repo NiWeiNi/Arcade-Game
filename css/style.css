@@ -35,3 +35,7 @@ main h1 {
     font-size: 0.5em;
     padding: 10px;
 }
+
+.replay:hover {
+    font-size: 0.6em;
+}

@@ -37,15 +37,15 @@ class Player {
         this.sprite = "img/char-boy.png"
     }
     update(dt) {
-        if (this.x > 402) 
-            this.x = 402;
+        if (this.x > 400) 
+            this.x = 400;
         if (this.x < 0)
             this.x = 0;
-        if (this.y > 402)
-            this.y = 402;
+        if (this.y > 400)
+            this.y = 400;
         if (this.y < 30) {
-            this.y = 402;
-            this.x = 200;
+            this.y = 400;
+            this.x = 202;
             this.getPoints();
             document.querySelector(".score").textContent = this.score;
         }
@@ -55,15 +55,15 @@ class Player {
     }
     // Method to add points 
     getPoints() {
-        this.score += "*";
+        this.score += "🖤";
     }
     handleInput(keyPress) {
         switch (keyPress) {
             case "up":
-                this.y -= 84;
+                this.y -= 83;
                 break;
             case "down":
-                this.y += 84;
+                this.y += 83;
                 break;
             case "left":
                 this.x -= 101;
@@ -80,11 +80,7 @@ class Squashed {
     constructor() {
         this.x = player.x;
         this.y = player.y;
-        this.hospital = "";
         this.sprite = "img/char-boy-down.png";
-    }
-    getPoints() {
-        this.hospital += "*";
     }
     update() {
         this.x = player.x;
@@ -104,7 +100,7 @@ for (let i = 0; i < 6; i++) {
     const enemy = new Enemy(Math.floor(Math.random()), Array(63, 146, 229)[Math.floor(Math.random() * 3)] , 50 + Math.random() * 100);
     allEnemies.push(enemy);
 }
-const player = new Player(200, 400);
+const player = new Player(202, 400);
 const squashed = new Squashed();
 
 // This listens for key presses and sends the keys to your
