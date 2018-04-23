@@ -37,8 +37,8 @@ class Player {
         this.sprite = "img/char-boy.png"
     }
     update(dt) {
-        if (this.x > 400) 
-            this.x = 400;
+        if (this.x > 404) 
+            this.x = 404;
         if (this.x < 0)
             this.x = 0;
         if (this.y > 400)
